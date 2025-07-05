@@ -19,13 +19,24 @@
 **chiaro-oscuro** demonstrates Continuous AI for automated asset generation. It uses LLMs to generate theme-aware SVG logos from text descriptions, ensuring technical compatibility with modern UI systems and accessibility standards.
 
 <div align="center">
-
-| Light Theme | Dark Theme |
-|-------------|------------|
-| <img src="assets/logo-light.svg" alt="Light theme logo" width="120"> | <img src="assets/logo-dark.svg" alt="Dark theme logo" width="120"> |
-| **Perfect for light backgrounds** | **Perfect for dark backgrounds** |
-| High contrast, dark elements | High contrast, light elements |
-
+<table>
+<tr>
+<th>Light Theme</th>
+<th>Dark Theme</th>
+</tr>
+<tr>
+<td align="center"><img src="assets/logo-light.svg" alt="Light theme logo" width="120"></td>
+<td align="center"><img src="assets/logo-dark.svg" alt="Dark theme logo" width="120"></td>
+</tr>
+<tr>
+<td align="center"><b>Perfect for light backgrounds</b></td>
+<td align="center"><b>Perfect for dark backgrounds</b></td>
+</tr>
+<tr>
+<td align="center">High contrast, dark elements</td>
+<td align="center">High contrast, light elements</td>
+</tr>
+</table>
 </div>
 
 ### Technical Capabilities
@@ -45,15 +56,6 @@ This project exemplifies [Continuous AI](https://githubnext.com/projects/continu
 ✅ **Auditable**: Full git history of generated assets and parameters  
 ✅ **Collaborative**: PR-based review workflow for generated content  
 
-### Technical Pattern
-```mermaid
-graph LR
-    A[Text Input] --> B[LLM Prompt]
-    B --> C[GitHub Models API]
-    C --> D[SVG Generation]
-    D --> E[Theme Variants]
-    E --> F[Git Commit + PR]
-```
 
 ## 🚀 Quick Start
 
