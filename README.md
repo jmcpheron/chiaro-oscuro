@@ -47,6 +47,53 @@
 - **Accessibility Compliance**: Ensures WCAG 2.1 AA contrast ratios
 - **Zero Dependencies**: Uses only GitHub's built-in infrastructure (Actions + Models)
 
+## 📦 How to Use
+
+### Step 1: Create the Workflow File
+Create `.github/workflows/generate-logo.yml` in your repository:
+
+```yaml
+name: Generate Logo
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Your project name'
+        required: true
+        default: ${{ github.event.repository.name }}
+      description:
+        description: 'What does your project do?'
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  models: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jmcpheron/chiaro-oscuro@v1
+        with:
+          project-name: ${{ inputs.project_name }}
+          description: ${{ inputs.description }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Step 2: Run the Workflow
+1. Go to your repository's **Actions** tab
+2. Select **Generate Logo** from the left sidebar
+3. Click **Run workflow**
+4. Enter your project name and description
+5. Click **Run workflow**
+
+### Step 3: Review and Merge
+- The action will create a pull request with your new logos
+- Review the generated `logo-light.svg` and `logo-dark.svg`
+- Merge when satisfied!
+
 ## 🔧 Continuous AI Implementation
 
 This project exemplifies [Continuous AI](https://githubnext.com/projects/continuous-ai/) principles by automating repetitive technical tasks in software development:
