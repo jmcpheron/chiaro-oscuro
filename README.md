@@ -83,7 +83,7 @@ jobs:
 
 1. **LLM Integration**
    - Uses [Simon Willison's llm CLI](https://github.com/simonw/llm)
-   - [llm-github-models](https://github.com/simonw/llm-github-models) plugin
+   - [Anthony Shaw's llm-github-models](https://github.com/tonybaloney/llm-github-models) plugin
    - Shell-based orchestration for maximum portability
 
 2. **SVG Processing Pipeline**
