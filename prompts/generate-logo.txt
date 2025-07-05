@@ -1,0 +1,44 @@
+Create professional SVG logos for a software project with the following specifications:
+
+PROJECT DETAILS:
+- Name: {{PROJECT_NAME}}
+- Description: {{DESCRIPTION}}
+- Style: {{STYLE}}
+
+REQUIREMENTS:
+Generate TWO complete SVG logos - one optimized for light themes and one for dark themes.
+
+LIGHT THEME VERSION:
+- Designed for white/light backgrounds
+- Use dark colors for primary elements
+- Ensure high contrast (WCAG 2.1 AA standards)
+- Clean, professional appearance
+
+DARK THEME VERSION:
+- Designed for black/dark backgrounds  
+- Use light colors for primary elements
+- Ensure high contrast (WCAG 2.1 AA standards)
+- Maintains same design as light version
+
+DESIGN GUIDELINES:
+- Modern, scalable vector design
+- Simple and memorable
+- Reflects the project's purpose
+- Works well at multiple sizes (16px to 200px)
+- Uses geometric shapes or meaningful symbols
+- Avoids overly complex details
+
+OUTPUT FORMAT:
+Provide exactly two SVG code blocks:
+
+```svg
+<!-- Light theme logo -->
+<svg>...</svg>
+```
+
+```svg
+<!-- Dark theme logo -->
+<svg>...</svg>
+```
+
+Each SVG should be complete, valid, and self-contained with proper viewBox, title, and description elements.

@@ -1,0 +1,95 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chiaro-oscuro"
+version = "0.1.0"
+description = "Automatically optimize your repository logos for light and dark themes using AI"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Jason McPheron", email = "jmcpheron@users.noreply.github.com" }
+]
+keywords = [
+    "github-actions",
+    "continuous-ai", 
+    "logo-optimization",
+    "theme-aware",
+    "ai",
+    "llm"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.9"
+
+# Production dependencies
+dependencies = [
+    "requests>=2.31.0",
+    "llm>=0.13.0",
+    "llm-github-models>=0.2.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+# Development dependencies
+dev = [
+    # Testing
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    
+    # Code quality
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+    "types-requests>=2.31.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jmcpheron/chiaro-oscuro"
+Repository = "https://github.com/jmcpheron/chiaro-oscuro"
+Issues = "https://github.com/jmcpheron/chiaro-oscuro/issues"
+
+[project.scripts]
+chiaro-oscuro = "src.process_logos:main"
+
+# === UV configuration ===
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+    "types-requests>=2.31.0",
+]
+
+# === Black configuration ===
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+
+# === isort configuration ===
+[tool.isort]
+profile = "black"
+line_length = 100
+
+# === mypy configuration ===
+[tool.mypy]
+python_version = "3.9"
+ignore_missing_imports = true
+
+# === Hatch configuration ===
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

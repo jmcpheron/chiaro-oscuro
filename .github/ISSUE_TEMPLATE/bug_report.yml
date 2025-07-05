@@ -1,0 +1,72 @@
+name: Bug Report
+description: File a bug report to help us improve chiaro-oscuro
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  
+  - type: input
+    id: action-version
+    attributes:
+      label: Action Version
+      description: What version of chiaro-oscuro are you using?
+      placeholder: v1.0.0
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: ai-backend
+    attributes:
+      label: AI Backend
+      description: Which AI backend were you using?
+      options:
+        - github-models
+        - llm-cli
+    validations:
+      required: true
+  
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      description: Which model were you using?
+      placeholder: gpt-4o, claude-3-5-sonnet, etc.
+    validations:
+      required: true
+  
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  
+  - type: textarea
+    id: workflow-config
+    attributes:
+      label: Workflow Configuration
+      description: Please share your workflow YAML configuration
+      render: yaml
+    validations:
+      required: true
+  
+  - type: textarea
+    id: logs
+    attributes:
+      label: Action Logs
+      description: Please copy and paste any relevant log output
+      render: shell
+  
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

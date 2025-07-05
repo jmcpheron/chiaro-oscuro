@@ -1,0 +1,23 @@
+# act configuration for chiaro-oscuro
+# https://github.com/nektos/act
+
+# Platform mappings for local testing
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+-P ubuntu-20.04=catthehacker/ubuntu:act-20.04
+-P ubuntu-18.04=catthehacker/ubuntu:act-18.04
+
+# Secret mappings for testing (use dummy values)
+-s GITHUB_TOKEN=dummy_token_for_testing
+-s ANTHROPIC_API_KEY=dummy_anthropic_key
+-s OPENAI_API_KEY=dummy_openai_key
+-s GEMINI_API_KEY=dummy_gemini_key
+
+# Environment variables for testing
+-e CI=true
+-e GITHUB_ACTIONS=true
+
+# Verbose output for debugging
+-v
+
+# Use host networking for API access during testing
+--container-options "--network host"

@@ -1,0 +1,57 @@
+name: Test Logo Generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Project name'
+        required: true
+        default: 'chiaro-oscuro'
+      description:
+        description: 'Project description'
+        required: true
+        default: 'AI-powered logo generation for GitHub projects'
+      style:
+        description: 'Design style'
+        required: true
+        default: 'modern'
+        type: choice
+        options:
+          - modern
+          - minimal
+          - playful
+          - corporate
+          - tech
+      model:
+        description: 'AI model to use'
+        required: false
+        default: 'github/gpt-4o-mini'
+        type: choice
+        options:
+          - 'github/gpt-4o-mini'
+          - 'github/llama-3.1-70b-instruct'
+          - 'github/deepseek-r1'
+
+permissions:
+  contents: write
+  pull-requests: write
+  models: read
+
+jobs:
+  test-generation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Test Logo Generation
+        uses: ./
+        with:
+          project-name: ${{ inputs.project_name }}
+          description: ${{ inputs.description }}
+          style: ${{ inputs.style }}
+          model: ${{ inputs.model }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch-name: 'test/logo-generation'
+          commit-message: 'Test: Generate logo with AI'
+          pr-title: 'Test: AI-generated logo'

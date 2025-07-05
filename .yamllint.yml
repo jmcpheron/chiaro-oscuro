@@ -1,0 +1,36 @@
+extends: default
+
+rules:
+  # Allow longer lines for GitHub Actions workflows
+  line-length:
+    max: 120
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+  
+  # GitHub Actions often use indentation of 2
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+  
+  # Allow truthy values like 'on', 'off' which are common in GitHub Actions
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off']
+    check-keys: false
+  
+  # Allow comments at the end of lines
+  comments-indentation: disable
+  
+  # GitHub Actions workflows often have long strings in run blocks
+  quoted-strings:
+    quote-type: any
+    required: false
+  
+  # Allow empty values for optional action inputs
+  empty-values:
+    forbid-in-block-mappings: false
+    forbid-in-flow-mappings: false
+
+ignore: |
+  node_modules/
+  *.md

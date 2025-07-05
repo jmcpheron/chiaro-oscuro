@@ -1,0 +1,11 @@
+# Global code owners
+* @jmcpheron
+
+# Critical files require additional review
+action.yml @jmcpheron
+src/generate_logo.py @jmcpheron
+requirements.txt @jmcpheron
+
+# Documentation
+*.md @jmcpheron
+docs/ @jmcpheron
