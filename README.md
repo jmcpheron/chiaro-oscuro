@@ -1,3 +1,4 @@
+# Chiaroscuro 🌓
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
@@ -6,7 +7,8 @@
   </picture>
 </p>
 
-# chiaro-oscuro 🌓
+>From the workshops of Florence to the workflows of GitHub: `chiaro-oscuro` translates the timeless language of contrast into the living vocabulary of adaptive interfaces.
+
 
 **Continuous AI-powered SVG generation with automatic theme variants**
 
