@@ -29,16 +29,22 @@ DESIGN GUIDELINES:
 - Avoids overly complex details
 
 OUTPUT FORMAT:
-Provide exactly two SVG code blocks:
+You MUST provide exactly two complete SVG logos in code blocks like this:
 
 ```svg
-<!-- Light theme logo -->
-<svg>...</svg>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>{{PROJECT_NAME}} Logo (Light Theme)</title>
+  <desc>Logo optimized for light backgrounds</desc>
+  <!-- SVG content here -->
+</svg>
 ```
 
 ```svg
-<!-- Dark theme logo -->
-<svg>...</svg>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>{{PROJECT_NAME}} Logo (Dark Theme)</title>
+  <desc>Logo optimized for dark backgrounds</desc>
+  <!-- SVG content here -->
+</svg>
 ```
 
-Each SVG should be complete, valid, and self-contained with proper viewBox, title, and description elements.
+IMPORTANT: Each SVG must be complete and valid, starting with <svg and ending with </svg>.

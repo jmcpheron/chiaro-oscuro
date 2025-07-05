@@ -34,11 +34,24 @@ def extract_theme_variants(logo_response: str) -> tuple[str | None, str | None]:
     except Exception as e:
         logger.warning(f"Could not save debug response: {e}")
     
-    # Extract all SVG blocks using pattern
-    svg_pattern = r"```svg\s*(.*?)\s*```"
-    all_svgs = re.findall(svg_pattern, logo_response, re.DOTALL | re.IGNORECASE)
+    # Extract all SVG blocks using multiple patterns
+    all_svgs = []
     
-    logger.info(f"🔍 Found {len(all_svgs)} SVG code blocks in LLM response")
+    # Try code block pattern first
+    svg_pattern = r"```(?:svg)?\s*(.*?)\s*```"
+    code_blocks = re.findall(svg_pattern, logo_response, re.DOTALL | re.IGNORECASE)
+    
+    for block in code_blocks:
+        if '<svg' in block and '</svg>' in block:
+            all_svgs.append(block)
+    
+    # If no code blocks, try direct SVG tags
+    if not all_svgs:
+        svg_direct_pattern = r"(<svg[^>]*>.*?</svg>)"
+        direct_svgs = re.findall(svg_direct_pattern, logo_response, re.DOTALL | re.IGNORECASE)
+        all_svgs.extend(direct_svgs)
+    
+    logger.info(f"🔍 Found {len(all_svgs)} SVG blocks in LLM response")
     
     # Validate each SVG
     valid_svgs = []
@@ -57,6 +70,7 @@ def extract_theme_variants(logo_response: str) -> tuple[str | None, str | None]:
                 logger.info(f"   → Identified as DARK theme variant")
         else:
             logger.warning(f"❌ SVG block {i+1} failed validation")
+            logger.debug(f"   Preview: {svg_clean[:100]}...")
     
     logger.info(f"🎯 Total valid SVGs: {len(valid_svgs)}")
     
