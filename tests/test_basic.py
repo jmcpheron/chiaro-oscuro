@@ -41,9 +41,9 @@ def test_src_directory_exists():
     assert src_dir.exists()
 
 
-def test_generate_logo_module_exists():
+def test_process_logos_module_exists():
     """Test that the main module exists."""
-    main_module = Path("src/generate_logo.py")
+    main_module = Path("src/process_logos_llm.py")
     assert main_module.exists()
 
 
