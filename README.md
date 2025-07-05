@@ -18,6 +18,16 @@
 
 **chiaro-oscuro** demonstrates Continuous AI for automated asset generation. It uses LLMs to generate theme-aware SVG logos from text descriptions, ensuring technical compatibility with modern UI systems and accessibility standards.
 
+<div align="center">
+
+| Light Theme | Dark Theme |
+|-------------|------------|
+| <img src="assets/logo-light.svg" alt="Light theme logo" width="120"> | <img src="assets/logo-dark.svg" alt="Dark theme logo" width="120"> |
+| **Perfect for light backgrounds** | **Perfect for dark backgrounds** |
+| High contrast, dark elements | High contrast, light elements |
+
+</div>
+
 ### Technical Capabilities
 - **Automated SVG Generation**: Creates vector graphics from text descriptions using LLMs
 - **Theme-Aware Output**: Generates separate variants for `prefers-color-scheme: light/dark`

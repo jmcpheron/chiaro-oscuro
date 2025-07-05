@@ -29,15 +29,15 @@ def validate_svg_content(svg_content: str) -> bool:
             return False
         if not svg_content.strip().endswith("</svg>"):
             return False
-        
+
         # Check for balanced tags (basic validation)
         if svg_content.count("<svg") != svg_content.count("</svg>"):
             return False
-        
+
         # Minimum length check (avoid empty SVGs)
         if len(svg_content.strip()) < 20:
             return False
-            
+
         return True
     except Exception:
         return False
@@ -53,7 +53,7 @@ def extract_svg_from_response(response_text: str) -> str:
     ]
 
     candidates = []
-    
+
     for pattern in svg_patterns:
         match = re.search(pattern, response_text, re.DOTALL | re.IGNORECASE)
         if match:
@@ -67,8 +67,10 @@ def extract_svg_from_response(response_text: str) -> str:
             candidates.append(response_text.strip())
 
     if not candidates:
-        raise ValueError(f"No valid SVG content found in AI response. Response length: {len(response_text)} chars, starts with: {response_text[:100]}")
-    
+        raise ValueError(
+            f"No valid SVG content found in AI response. Response length: {len(response_text)} chars, starts with: {response_text[:100]}"
+        )
+
     # Return the longest valid SVG (likely the most complete)
     return max(candidates, key=len)
 
@@ -77,14 +79,14 @@ def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) ->
     """Update README.md with GitHub's picture element for theme-aware logos."""
     logger = logging.getLogger(__name__)
     readme_path = Path("README.md")
-    
+
     if not readme_path.exists():
         logger.info("Creating new README.md")
         readme_content = ""
     else:
         logger.info("Updating existing README.md")
         readme_content = readme_path.read_text()
-    
+
     # Create the picture element
     picture_element = f"""<p align="center">
   <picture>
@@ -93,28 +95,28 @@ def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) ->
     <img src="{light_logo_path}" alt="Project logo" width="200">
   </picture>
 </p>"""
-    
+
     # Check if README already has a picture element
     if "<picture>" in readme_content:
         # Replace existing picture element
-        pattern = r'<p[^>]*>\s*<picture>.*?</picture>\s*</p>'
+        pattern = r"<p[^>]*>\s*<picture>.*?</picture>\s*</p>"
         readme_content = re.sub(pattern, picture_element, readme_content, flags=re.DOTALL)
         logger.info("Replaced existing picture element")
     else:
         # Add picture element at the beginning
         if readme_content.startswith("#"):
             # Insert after the first heading
-            lines = readme_content.split('\n')
+            lines = readme_content.split("\n")
             for i, line in enumerate(lines):
                 if line.startswith("#") and i + 1 < len(lines):
                     lines.insert(i + 1, "\n" + picture_element + "\n")
                     break
-            readme_content = '\n'.join(lines)
+            readme_content = "\n".join(lines)
         else:
             # Add at the very beginning
             readme_content = picture_element + "\n\n" + readme_content
         logger.info("Added new picture element")
-    
+
     # Write updated content
     readme_path.write_text(readme_content)
     logger.info("✅ README.md updated with theme-aware logos")
