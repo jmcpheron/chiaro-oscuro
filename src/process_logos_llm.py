@@ -8,6 +8,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Optional, Tuple
 
 from utils import (
     extract_svg_from_response,
@@ -19,7 +20,7 @@ from utils import (
 logger = setup_logging()
 
 
-def extract_theme_variants(logo_response: str) -> tuple[str | None, str | None]:
+def extract_theme_variants(logo_response: str) -> Tuple[Optional[str], Optional[str]]:
     """Extract light and dark theme variants from the LLM logo response."""
     light_svg = None
     dark_svg = None
