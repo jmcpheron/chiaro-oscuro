@@ -47,52 +47,125 @@
 - **Accessibility Compliance**: Ensures WCAG 2.1 AA contrast ratios
 - **Zero Dependencies**: Uses only GitHub's built-in infrastructure (Actions + Models)
 
-## 📦 How to Use
+## 🚀 Getting Started
 
-### Step 1: Create the Workflow File
-Create `.github/workflows/generate-logo.yml` in your repository:
+Add AI-powered logo generation to your repository in minutes!
+
+### Prerequisites
+- A GitHub repository where you want a logo
+- Actions enabled in your repository
+- That's it! No API keys or external accounts needed
+
+### Step 1: Create the Workflow
+Create a new file `.github/workflows/generate-logo.yml` in your repository with this content:
 
 ```yaml
 name: Generate Logo
 on:
   workflow_dispatch:
     inputs:
-      project_name:
-        description: 'Your project name'
-        required: true
-        default: ${{ github.event.repository.name }}
       description:
         description: 'What does your project do?'
         required: true
+        type: string
 
 permissions:
   contents: write
   pull-requests: write
-  models: read
+  models: read  # Required for GitHub's AI models
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: jmcpheron/chiaro-oscuro@v1
+      
+      - name: Generate logo with AI
+        uses: jmcpheron/chiaro-oscuro@v1
         with:
-          project-name: ${{ inputs.project_name }}
+          project-name: ${{ github.event.repository.name }}
           description: ${{ inputs.description }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### Step 2: Run the Workflow
-1. Go to your repository's **Actions** tab
-2. Select **Generate Logo** from the left sidebar
-3. Click **Run workflow**
-4. Enter your project name and description
-5. Click **Run workflow**
+### Step 2: Configure Your Repository
+Enable GitHub Actions to create pull requests:
+1. Go to **Settings** → **Actions** → **General**
+2. Under **Workflow permissions**, check "Allow GitHub Actions to create and approve pull requests"
+3. Save your changes
 
-### Step 3: Review and Merge
-- The action will create a pull request with your new logos
-- Review the generated `logo-light.svg` and `logo-dark.svg`
-- Merge when satisfied!
+### Step 3: Generate Your Logo
+1. Go to the **Actions** tab in your repository
+2. Select **"Generate Logo"** from the workflow list
+3. Click **"Run workflow"**
+4. Enter a description of what your project does (e.g., "A Python library for data visualization")
+5. Click the green **"Run workflow"** button
+
+### Step 4: Review and Merge
+After ~30 seconds:
+- A pull request will appear with your new logos
+- Review `assets/logo-light.svg` and `assets/logo-dark.svg`
+- The PR will also update your README.md with theme-aware display
+- Merge when you're happy with the results!
+
+### 🎨 Customization Options
+
+```yaml
+- uses: jmcpheron/chiaro-oscuro@v1
+  with:
+    project-name: 'My Cool Project'  # Override repo name
+    description: ${{ inputs.description }}
+    style: 'minimal'  # Options: modern, minimal, playful, corporate, tech
+    output-dir: 'images'  # Default: assets
+    model: 'github/gpt-4o'  # Use a different AI model
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### 📝 Example Results
+Your README will automatically be updated with:
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/logo-light.svg">
+  <img src="assets/logo-light.svg" alt="Project logo" width="200">
+</picture>
+```
+
+This ensures your logo looks great in both light and dark themes!
+
+## ❓ Troubleshooting & FAQ
+
+### Common Issues
+
+**"GitHub Actions is not permitted to create or approve pull requests"**
+- You need to enable this in Settings → Actions → General → Workflow permissions
+- This is a one-time setup per repository
+
+**"Models permission required"**
+- Make sure your workflow includes `models: read` in the permissions section
+- This allows the action to use GitHub's AI models
+
+**"No pull request created"**
+- Check the Actions tab for any error messages
+- Ensure your default branch is named `main` (or update the workflow)
+- Verify you have write permissions to the repository
+
+### FAQ
+
+**Q: Do I need any API keys?**
+A: No! This uses GitHub's built-in AI models. Your GitHub token is all you need.
+
+**Q: Can I regenerate if I don't like the logo?**
+A: Yes! Just run the workflow again. Each run generates unique designs.
+
+**Q: Where are the logos saved?**
+A: By default in `assets/` directory. You can change this with the `output-dir` parameter.
+
+**Q: Can I use this in a private repository?**
+A: Yes, as long as your GitHub plan includes access to GitHub Models.
+
+**Q: What if I already have a logo?**
+A: The action will create new ones. Back up existing logos first if needed.
 
 ## 🔧 Continuous AI Implementation
 
