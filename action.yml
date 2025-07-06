@@ -149,13 +149,31 @@ runs:
         # Change to workspace directory
         cd "${GITHUB_WORKSPACE}"
         
+        # Debug: Show where we are and what files exist
+        echo "Current directory: $(pwd)"
+        echo "Files in assets directory:"
+        ls -la ${{ inputs.output-dir }}/ || echo "No assets directory found"
+        echo "Git status before configuration:"
+        git status --porcelain
+        
         # Configure git
         git config --global user.name "chiaro-oscuro[bot]"
         git config --global user.email "action@github.com"
         
+        # Force add the files to ensure they're tracked
+        git add -f ${{ inputs.output-dir }}/logo-*.svg README.md || {
+          echo "Failed to add files. Checking what's available:"
+          find . -name "*.svg" -type f
+          exit 1
+        }
+        
         # Check if there are changes to commit
-        if git diff --quiet && git diff --cached --quiet; then
-          echo "No changes to commit"
+        if git diff --staged --quiet; then
+          echo "No changes to commit after staging"
+          echo "Git status:"
+          git status
+          echo "Files that should exist:"
+          ls -la ${{ inputs.output-dir }}/logo-*.svg README.md
           exit 0
         fi
         
@@ -165,8 +183,7 @@ runs:
         # Create and switch to new branch
         git checkout -b "$BRANCH_NAME"
         
-        # Add and commit changes
-        git add ${{ inputs.output-dir }}/logo-*.svg README.md
+        # Commit changes (files already staged above)
         git commit -m "$COMMIT_MESSAGE"
         
         # Push branch
