@@ -145,10 +145,24 @@ This ensures your logo looks great in both light and dark themes!
 - Make sure your workflow includes `models: read` in the permissions section
 - This allows the action to use GitHub's AI models
 
-**"No pull request created"**
+**"No pull request created" / "No files saved"**
 - Check the Actions tab for any error messages
 - Ensure your default branch is named `main` (or update the workflow)
 - Verify you have write permissions to the repository
+- Make sure the workflow has these permissions:
+  ```yaml
+  permissions:
+    contents: write
+    pull-requests: write
+    models: read
+  ```
+
+**"Action runs but no branch/PR created"**
+- The action needs to modify files in YOUR repository, not the action's repository
+- If you see the action complete but no changes, check:
+  1. The workflow has `contents: write` permission
+  2. You've checked out your repository first with `actions/checkout@v4`
+  3. The `GITHUB_TOKEN` has sufficient permissions
 
 ### FAQ
 

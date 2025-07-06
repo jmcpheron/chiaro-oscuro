@@ -1,0 +1,41 @@
+name: Test External Repository
+on:
+  workflow_dispatch:
+    inputs:
+      test-repo:
+        description: 'Test repository (format: owner/repo)'
+        required: true
+        default: 'octocat/hello-world'
+
+permissions:
+  contents: write
+  pull-requests: write
+  models: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout test repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.test-repo }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Run chiaro-oscuro action
+        uses: jmcpheron/chiaro-oscuro@main
+        with:
+          project-name: ${{ inputs.test-repo }}
+          description: 'A test project for chiaro-oscuro debugging'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Show results
+        run: |
+          echo "=== Files created ==="
+          find . -name "*.svg" -type f
+          echo ""
+          echo "=== Git status ==="
+          git status
+          echo ""
+          echo "=== Git branches ==="
+          git branch -a
