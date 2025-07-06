@@ -134,6 +134,8 @@ runs:
       run: |
         cd ${{ github.action_path }}
         echo "🔄 Processing AI responses..."
+        # Run in the action directory but save to workspace
+        OUTPUT_DIR="${GITHUB_WORKSPACE}/${{ inputs.output-dir }}" \
         uv run python src/process_logos_llm.py
     
     - name: Create pull request with optimized logos
@@ -144,8 +146,11 @@ runs:
         COMMIT_MESSAGE: ${{ inputs.commit-message }}
         PR_TITLE: ${{ inputs.pr-title }}
       run: |
+        # Change to workspace directory
+        cd "${GITHUB_WORKSPACE}"
+        
         # Configure git
-        git config --global user.name "chiaro-oscuro-v2[bot]"
+        git config --global user.name "chiaro-oscuro[bot]"
         git config --global user.email "action@github.com"
         
         # Check if there are changes to commit

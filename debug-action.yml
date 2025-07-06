@@ -1,0 +1,143 @@
+name: 'chiaro-oscuro-debug'
+description: 'Debug version to diagnose issues in external repos'
+
+inputs:
+  project-name:
+    description: 'Name of your project or repository'
+    required: true
+  description:
+    description: 'Brief description of what your project does'
+    required: true
+  style:
+    description: 'Logo design style'
+    required: false
+    default: 'modern'
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  output-dir:
+    description: 'Directory for generated logos'
+    required: false
+    default: 'assets'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Debug environment
+      shell: bash
+      run: |
+        echo "=== DEBUG: Environment Variables ==="
+        echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
+        echo "GITHUB_ACTION_PATH: ${{ github.action_path }}"
+        echo "Current directory: $(pwd)"
+        echo "Repository: ${{ github.repository }}"
+        echo "Ref: ${{ github.ref }}"
+        
+        echo -e "\n=== DEBUG: Directory structure ==="
+        ls -la "${GITHUB_WORKSPACE}"
+        
+        echo -e "\n=== DEBUG: Git status ==="
+        cd "${GITHUB_WORKSPACE}"
+        git status
+        
+    - name: Create test files
+      shell: bash
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        
+        # Create output directory
+        mkdir -p "${{ inputs.output-dir }}"
+        
+        # Create test SVG files
+        cat > "${{ inputs.output-dir }}/logo-light.svg" << 'EOF'
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Debug Test (Light)</title>
+  <rect width="200" height="200" fill="white" />
+  <text x="100" y="100" text-anchor="middle">DEBUG LIGHT</text>
+</svg>
+EOF
+
+        cat > "${{ inputs.output-dir }}/logo-dark.svg" << 'EOF'
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Debug Test (Dark)</title>
+  <rect width="200" height="200" fill="black" />
+  <text x="100" y="100" fill="white" text-anchor="middle">DEBUG DARK</text>
+</svg>
+EOF
+
+        # Create or update README
+        if [ ! -f README.md ]; then
+          echo "# ${{ inputs.project-name }}" > README.md
+          echo "" >> README.md
+          echo "Debug test for chiaro-oscuro" >> README.md
+        fi
+        
+        # Add picture element to README
+        cat > /tmp/picture.txt << 'EOF'
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="${{ inputs.output-dir }}/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="${{ inputs.output-dir }}/logo-light.svg">
+    <img src="${{ inputs.output-dir }}/logo-light.svg" alt="Project logo" width="200">
+  </picture>
+</p>
+
+EOF
+        
+        # Insert after first line if README exists
+        if [ -f README.md ]; then
+          head -1 README.md > README.tmp
+          cat /tmp/picture.txt >> README.tmp
+          tail -n +2 README.md >> README.tmp
+          mv README.tmp README.md
+        fi
+        
+        echo -e "\n=== DEBUG: Files created ==="
+        ls -la "${{ inputs.output-dir }}/"
+        
+        echo -e "\n=== DEBUG: README preview ==="
+        head -20 README.md
+        
+    - name: Debug git operations
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        
+        echo -e "\n=== DEBUG: Git config ==="
+        git config --global user.name "debug-bot"
+        git config --global user.email "debug@example.com"
+        git config --list | grep -E "(user|remote)" || true
+        
+        echo -e "\n=== DEBUG: Git status before ==="
+        git status
+        
+        echo -e "\n=== DEBUG: Git diff ==="
+        git diff --name-only
+        
+        echo -e "\n=== DEBUG: Try to create branch ==="
+        git checkout -b "debug/test-branch" || echo "Failed to create branch"
+        
+        echo -e "\n=== DEBUG: Try to add files ==="
+        git add "${{ inputs.output-dir }}/logo-*.svg" README.md || echo "Failed to add files"
+        
+        echo -e "\n=== DEBUG: Git status after add ==="
+        git status
+        
+        echo -e "\n=== DEBUG: Try to commit ==="
+        git commit -m "Debug test commit" || echo "Failed to commit"
+        
+        echo -e "\n=== DEBUG: Current branch ==="
+        git branch --show-current
+        
+        echo -e "\n=== DEBUG: All branches ==="
+        git branch -a
+        
+        echo -e "\n=== DEBUG: Remote info ==="
+        git remote -v
+        
+        echo -e "\n=== DEBUG: GitHub CLI check ==="
+        which gh && gh --version || echo "GitHub CLI not found"
+        gh auth status || echo "Not authenticated"

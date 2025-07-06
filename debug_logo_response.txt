@@ -1,0 +1,26 @@
+LLM LOGO RESPONSE DEBUG:
+
+
+Here are the logo variants for your project:
+
+## Light Theme Logo
+```svg
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Test Logo (Light Theme)</title>
+  <desc>Logo optimized for light backgrounds</desc>
+  <rect width="200" height="200" fill="white" />
+  <circle cx="100" cy="100" r="60" fill="#333" />
+  <text x="100" y="110" font-family="Arial" font-size="24" fill="white" text-anchor="middle">TEST</text>
+</svg>
+```
+
+## Dark Theme Logo
+```svg
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Test Logo (Dark Theme)</title>
+  <desc>Logo optimized for dark backgrounds</desc>
+  <rect width="200" height="200" fill="black" />
+  <circle cx="100" cy="100" r="60" fill="#fff" />
+  <text x="100" y="110" font-family="Arial" font-size="24" fill="black" text-anchor="middle">TEST</text>
+</svg>
+```

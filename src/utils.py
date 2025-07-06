@@ -3,6 +3,7 @@ Utility functions for chiaro-oscuro logo generation.
 """
 
 import logging
+import os
 import re
 from pathlib import Path
 
@@ -78,7 +79,9 @@ def extract_svg_from_response(response_text: str) -> str:
 def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) -> None:
     """Update README.md with GitHub's picture element for theme-aware logos."""
     logger = logging.getLogger(__name__)
-    readme_path = Path("README.md")
+    # Use GITHUB_WORKSPACE if available, otherwise current directory
+    workspace = os.environ.get("GITHUB_WORKSPACE", ".")
+    readme_path = Path(workspace) / "README.md"
 
     if not readme_path.exists():
         logger.info("Creating new README.md")
@@ -87,12 +90,26 @@ def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) ->
         logger.info("Updating existing README.md")
         readme_content = readme_path.read_text()
 
-    # Create the picture element
+    # Convert paths to be relative to the workspace
+    workspace_path = Path(workspace)
+    light_path = Path(light_logo_path)
+    dark_path = Path(dark_logo_path)
+    
+    # Make paths relative if they're under the workspace
+    try:
+        light_rel = light_path.relative_to(workspace_path)
+        dark_rel = dark_path.relative_to(workspace_path)
+    except ValueError:
+        # If paths are not relative to workspace, use as-is
+        light_rel = light_path
+        dark_rel = dark_path
+    
+    # Create the picture element with relative paths
     picture_element = f"""<p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="{dark_logo_path}">
-    <source media="(prefers-color-scheme: light)" srcset="{light_logo_path}">
-    <img src="{light_logo_path}" alt="Project logo" width="200">
+    <source media="(prefers-color-scheme: dark)" srcset="{dark_rel.as_posix()}">
+    <source media="(prefers-color-scheme: light)" srcset="{light_rel.as_posix()}">
+    <img src="{light_rel.as_posix()}" alt="Project logo" width="200">
   </picture>
 </p>"""
 
