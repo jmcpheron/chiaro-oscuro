@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Generate logo with AI
-        uses: jmcpheron/chiaro-oscuro@v1
+        uses: jmcpheron/chiaro-oscuro@main
         with:
           project-name: ${{ github.event.repository.name }}
           description: ${{ inputs.description }}
@@ -101,6 +101,8 @@ Enable GitHub Actions to create pull requests:
 4. Enter a description of what your project does (e.g., "A Python library for data visualization")
 5. Click the green **"Run workflow"** button
 
+> **Note**: We're using `@main` instead of a version tag to ensure you get the latest fixes. For production use, you may want to pin to a specific commit SHA.
+
 ### Step 4: Review and Merge
 After ~30 seconds:
 - A pull request will appear with your new logos
@@ -111,7 +113,7 @@ After ~30 seconds:
 ### 🎨 Customization Options
 
 ```yaml
-- uses: jmcpheron/chiaro-oscuro@v1
+- uses: jmcpheron/chiaro-oscuro@main
   with:
     project-name: 'My Cool Project'  # Override repo name
     description: ${{ inputs.description }}
@@ -218,7 +220,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: jmcpheron/chiaro-oscuro@v1
+      - uses: jmcpheron/chiaro-oscuro@main
         with:
           project-name: ${{ inputs.project_name }}
           description: ${{ inputs.description }}
