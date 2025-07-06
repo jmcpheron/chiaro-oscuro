@@ -8,7 +8,7 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from utils import extract_svg_from_response, validate_svg_content
+from utils import extract_svg_from_response, validate_svg_content  # noqa: E402
 
 
 def test_extract_svg_from_response_simple():
@@ -66,18 +66,18 @@ def test_validate_svg_content():
     """Test SVG validation function."""
     # Valid SVG
     valid_svg = '<svg width="100" height="100"><circle cx="50" cy="50" r="40"/></svg>'
-    assert validate_svg_content(valid_svg) == True
+    assert validate_svg_content(valid_svg) is True
 
     # Invalid SVG (no closing tag)
     invalid_svg = '<svg width="100" height="100"><circle cx="50" cy="50" r="40"/>'
-    assert validate_svg_content(invalid_svg) == False
+    assert validate_svg_content(invalid_svg) is False
 
     # Invalid SVG (too short)
     short_svg = "<svg></svg>"
-    assert validate_svg_content(short_svg) == False
+    assert validate_svg_content(short_svg) is False
 
     # Invalid SVG (empty)
-    assert validate_svg_content("") == False
+    assert validate_svg_content("") is False
 
 
 def test_extract_svg_with_validation():
@@ -102,13 +102,19 @@ def test_theme_variants_extraction():
 
     # Mock response with both variants
     variants_response = """Here are the optimized versions:
-    
+
     ```svg
-    <svg width="100" height="100"><title>Logo (Light Theme)</title><circle cx="50" cy="50" r="40" fill="#000000"/></svg>
+    <svg width="100" height="100">
+      <title>Logo (Light Theme)</title>
+      <circle cx="50" cy="50" r="40" fill="#000000"/>
+    </svg>
     ```
-    
+
     ```svg
-    <svg width="100" height="100"><title>Logo (Dark Theme)</title><circle cx="50" cy="50" r="40" fill="#ffffff"/></svg>
+    <svg width="100" height="100">
+      <title>Logo (Dark Theme)</title>
+      <circle cx="50" cy="50" r="40" fill="#ffffff"/>
+    </svg>
     ```
     """
 

@@ -69,7 +69,9 @@ def extract_svg_from_response(response_text: str) -> str:
 
     if not candidates:
         raise ValueError(
-            f"No valid SVG content found in AI response. Response length: {len(response_text)} chars, starts with: {response_text[:100]}"
+            f"No valid SVG content found in AI response. "
+            f"Response length: {len(response_text)} chars, "
+            f"starts with: {response_text[:100]}"
         )
 
     # Return the longest valid SVG (likely the most complete)
@@ -94,7 +96,7 @@ def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) ->
     workspace_path = Path(workspace)
     light_path = Path(light_logo_path)
     dark_path = Path(dark_logo_path)
-    
+
     # Make paths relative if they're under the workspace
     try:
         light_rel = light_path.relative_to(workspace_path)
@@ -103,7 +105,7 @@ def update_readme_with_picture_tag(light_logo_path: str, dark_logo_path: str) ->
         # If paths are not relative to workspace, use as-is
         light_rel = light_path
         dark_rel = dark_path
-    
+
     # Create the picture element with relative paths
     picture_element = f"""<p align="center">
   <picture>

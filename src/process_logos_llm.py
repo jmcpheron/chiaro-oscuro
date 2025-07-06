@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 from utils import (
-    extract_svg_from_response,
     setup_logging,
     update_readme_with_picture_tag,
     validate_svg_content,
@@ -65,10 +64,10 @@ def extract_theme_variants(logo_response: str) -> Tuple[Optional[str], Optional[
             # Check for theme indicators in comments or descriptions
             if "light" in svg_clean.lower() and not light_svg:
                 light_svg = svg_clean
-                logger.info(f"   → Identified as LIGHT theme variant")
+                logger.info("   → Identified as LIGHT theme variant")
             elif "dark" in svg_clean.lower() and not dark_svg:
                 dark_svg = svg_clean
-                logger.info(f"   → Identified as DARK theme variant")
+                logger.info("   → Identified as DARK theme variant")
         else:
             logger.warning(f"❌ SVG block {i+1} failed validation")
             logger.debug(f"   Preview: {svg_clean[:100]}...")
@@ -85,7 +84,7 @@ def extract_theme_variants(logo_response: str) -> Tuple[Optional[str], Optional[
         return None, None
 
     # Final validation
-    logger.info(f"🎯 FINAL EXTRACTION RESULTS:")
+    logger.info("🎯 FINAL EXTRACTION RESULTS:")
     logger.info(f"   Light SVG: {'✅ Found' if light_svg else '❌ Missing'}")
     logger.info(f"   Dark SVG: {'✅ Found' if dark_svg else '❌ Missing'}")
 

@@ -2,7 +2,6 @@
 Very basic tests for chiaro-oscuro.
 """
 
-import os
 from pathlib import Path
 
 
