@@ -2,7 +2,7 @@
   <title>chiaro-oscuro Logo (Light Theme)</title>
   <desc>Logo optimized for light backgrounds</desc>
   <rect width="200" height="200" fill="white" />
-  <circle cx="100" cy="100" r="60" fill="#333" />
-  <text x="100" y="110" font-family="Arial" font-size="24" fill="white" text-anchor="middle">chiaro</text>
-  <text x="100" y="140" font-family="Arial" font-size="24" fill="#555" text-anchor="middle">oscuro</text>
+  <circle cx="100" cy="100" r="50" fill="#333" />
+  <path d="M 100 50 L 140 150 L 60 150 Z" fill="#666" />
+  <text x="100" y="190" font-family="Arial" font-size="16" fill="#333" text-anchor="middle">chiaro-oscuro</text>
 </svg>
