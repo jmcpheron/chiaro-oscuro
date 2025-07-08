@@ -1,8 +1,9 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <title>chiaro-oscuro Logo (Dark Theme)</title>
   <desc>Logo optimized for dark backgrounds</desc>
-  <rect width="200" height="200" fill="black" />
-  <circle cx="100" cy="100" r="50" fill="#fff" />
-  <path d="M 100 50 L 140 150 L 60 150 Z" fill="#ccc" />
-  <text x="100" y="190" font-family="Arial" font-size="16" fill="#fff" text-anchor="middle">chiaro-oscuro</text>
+  <circle cx="100" cy="100" r="80" fill="#000000" />
+  <path d="M60,70 A20,20 0,1,1 80,70 A20,20 0,1,1 60,70 Z" fill="#ffffff" />
+  <path d="M120,70 A20,20 0,1,1 140,70 A20,20 0,1,1 120,70 Z" fill="#ffffff" />
+  <path d="M100,110 C80,130 120,130 100,110 Z" fill="#ffffff" />
+  <text x="50%" y="180" font-family="Arial" font-size="18" text-anchor="middle" fill="#ffffff">chiaro-oscuro</text>
 </svg>
