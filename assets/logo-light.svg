@@ -1,9 +1,10 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <title>chiaro-oscuro Logo (Light Theme)</title>
   <desc>Logo optimized for light backgrounds</desc>
-  <circle cx="100" cy="100" r="80" fill="#ffffff" />
-  <path d="M60,70 A20,20 0,1,0 80,70 A20,20 0,1,0 60,70 Z" fill="#333333" />
-  <path d="M120,70 A20,20 0,1,0 140,70 A20,20 0,1,0 120,70 Z" fill="#333333" />
-  <path d="M100,110 C80,130 120,130 100,110 Z" fill="#333333" />
-  <text x="50%" y="180" font-family="Arial" font-size="18" text-anchor="middle" fill="#333333">chiaro-oscuro</text>
+  <circle cx="100" cy="100" r="98" fill="white" stroke="#333" stroke-width="4"/>
+  <path d="M60 140 Q70 120 80 140 T100 140 T120 140 T140 140 Q140 160 120 160 T80 160 Q60 160 60 140 Z" fill="#333"/>
+  <circle cx="100" cy="80" r="20" fill="#333"/>
+  <path d="M75 78 Q70 70 75 60 Q80 50 90 60 Q100 70 95 78 Q90 85 80 80 Z" fill="#ffcc00" />
+  <path d="M105 78 Q110 70 105 60 Q100 50 90 60 Q80 70 85 78 Q90 85 100 80 Z" fill="#ffcc00" />
+  <path d="M105 135 Q90 130 80 145 Q70 145 70 160 L60 162 Q60 147 75 132 Q90 120 105 135 Z" fill="#333"/>
 </svg>
